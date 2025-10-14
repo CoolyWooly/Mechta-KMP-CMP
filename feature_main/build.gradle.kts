@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidLint)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -72,8 +73,8 @@ kotlin {
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 // Navigation
-                implementation(libs.voyager.navigator)
-                implementation(libs.voyager.tab.navigator)
+
+                implementation(libs.navigation.compose)
                 // DI
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
@@ -81,7 +82,7 @@ kotlin {
                 implementation(libs.koin.compose.viewmodel)
                 implementation(libs.koin.compose.viewmodel.navigation)
 
-                implementation(project(":feature_tab_home"))
+                implementation(project(":feature_home"))
                 implementation(project(":feature_tab_catalog"))
             }
         }

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -39,7 +40,11 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation(libs.voyager.navigator)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.material.icons.core)
+            // Navigation
+            implementation(libs.navigation.compose)
+            // DI
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
@@ -49,6 +54,7 @@ kotlin {
             implementation(project(":core-ui"))
             implementation(project(":feature_splashscreen"))
             implementation(project(":feature_onboarding"))
+            implementation(project(":feature_main"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

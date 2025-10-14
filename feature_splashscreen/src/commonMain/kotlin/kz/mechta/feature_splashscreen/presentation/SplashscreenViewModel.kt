@@ -21,7 +21,7 @@ internal class SplashscreenViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            delay(5000)
+            delay(2000)
             if (true) {
                 _effect.emit(Effect.NavigateToOnboarding)
             } else {

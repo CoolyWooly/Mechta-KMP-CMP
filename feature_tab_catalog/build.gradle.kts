@@ -73,9 +73,7 @@ kotlin {
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.material.icons.core)
                 // Navigation
-                implementation(libs.voyager.navigator)
-                implementation(libs.voyager.tab.navigator)
-                implementation(libs.voyager.transitions)
+                implementation(libs.navigation.compose)
                 // DI
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)

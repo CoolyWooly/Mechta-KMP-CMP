@@ -16,32 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
-import cafe.adriel.voyager.navigator.tab.Tab
-import cafe.adriel.voyager.navigator.tab.TabOptions
-import cafe.adriel.voyager.transitions.SlideTransition
-import kz.mechta.feature_home.presentation.HomePage
 
-object TabHomePage : Tab {
+@Composable
+fun TabHomePage() {
 
-    override val options: TabOptions
-        @Composable
-        get() {
-            val icon = rememberVectorPainter(Icons.Default.Home)
-
-            return remember {
-                TabOptions(
-                    index = 0u,
-                    title = "Home",
-                    icon = icon
-                )
-            }
-        }
-
-    @Composable
-    override fun Content() {
-        Navigator(HomePage())
-    }
 }

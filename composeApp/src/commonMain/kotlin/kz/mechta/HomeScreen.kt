@@ -1,7 +1,6 @@
 package kz.mechta
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,42 +17,32 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import kz.mechta.feature_onboarding.presentation.OnboardingScreen
-import mechtakmp.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.painterResource
+import kz.mechta.feature_onboarding.presentation.OnboardingPage
 
-class HomeScreen: Screen {
-
-    @Composable
-    override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow
-
-        Scaffold {
-            var showContent by remember { mutableStateOf(false) }
-            Column(
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-                    .safeContentPadding()
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+@Composable
+fun HomeScreen() {
+    Scaffold {
+        var showContent by remember { mutableStateOf(false) }
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .safeContentPadding()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Button(onClick = {
+                showContent = !showContent
+            }
             ) {
-                Button(onClick = {
-                    navigator.push(OnboardingScreen())
-                    showContent = !showContent }
+                Text("Click me!")
+            }
+            AnimatedVisibility(showContent) {
+                val greeting = remember { Greeting().greet() }
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Text("Click me!")
-                }
-                AnimatedVisibility(showContent) {
-                    val greeting = remember { Greeting().greet() }
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text("Compose: $greeting")
-                    }
+                    Text("Compose: $greeting")
                 }
             }
         }
