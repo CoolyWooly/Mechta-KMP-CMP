@@ -14,6 +14,8 @@ import kz.mechta.core_data.di.coreUseCaseModule
 import kz.mechta.feature_main.presentation.MainPage
 import kz.mechta.feature_onboarding.presentation.OnboardingPage
 import kz.mechta.feature_splashscreen.presentation.SplashscreenPage
+import org.koin.compose.KoinApplication
+import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 
 @Serializable
@@ -32,16 +34,10 @@ private sealed class RootRoute() {
 
 @Composable
 fun App() {
-    startKoin {
-        modules(
-            listOf(
-                coreNetworkModule,
-                coreRepositoryModule,
-                coreUseCaseModule,
-                splashscreenModule,
-                onboardingModule,
-            )
-        )
+    LaunchedEffect(Unit) {
+        startKoin {
+            modules(coreNetworkModule, coreRepositoryModule, coreUseCaseModule, splashscreenModule, onboardingModule)
+        }
     }
 
     val navController = rememberNavController()
@@ -53,9 +49,11 @@ fun App() {
             composable<RootRoute.SplashscreenRoute> {
                 SplashscreenPage(
                     navigateToOnboarding = {
+                        navController.popBackStack()
                         navController.navigate(RootRoute.OnboardingRoute)
                     },
                     navigateToMain = {
+                        navController.popBackStack()
                         navController.navigate(RootRoute.MainRoute)
                     }
                 )
@@ -63,6 +61,7 @@ fun App() {
             composable<RootRoute.OnboardingRoute> { backStackEntry ->
                 OnboardingPage(
                     navigateToMain = {
+                        navController.popBackStack()
                         navController.navigate(RootRoute.MainRoute)
                     }
                 )

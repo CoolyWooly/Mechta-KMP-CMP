@@ -22,8 +22,23 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
+import kz.mechta.core_ui.generated.resources.Res
+import kz.mechta.core_ui.generated.resources.app_name
+import kz.mechta.core_ui.generated.resources.cart
+import kz.mechta.core_ui.generated.resources.catalog
+import kz.mechta.core_ui.generated.resources.favorites
+import kz.mechta.core_ui.generated.resources.home
+import kz.mechta.core_ui.generated.resources.ic_nav_1
+import kz.mechta.core_ui.generated.resources.ic_nav_2
+import kz.mechta.core_ui.generated.resources.ic_nav_3
+import kz.mechta.core_ui.generated.resources.ic_nav_4
+import kz.mechta.core_ui.generated.resources.ic_nav_5
+import kz.mechta.core_ui.generated.resources.profile
 import kz.mechta.feature_home.presentation.HomePage
-import mechtakmp.feature_main.generated.resources.Res
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -44,12 +59,12 @@ fun MainPage() {
                     }
                     NavigationBarItem(
                         icon = {
-//                            Icon(
-//                                imageVector = Icons.Filled.Home,
-//                                contentDescription = null
-//                            )
+                            Icon(
+                                painter = painterResource(tab.res),
+                                contentDescription = null
+                            )
                         },
-                        label = { Text(tab.title) },
+                        label = { Text(stringResource(tab.title)) },
                         selected = selected,
                         onClick = {
                             // При нажатии на вкладку выполняем навигацию:
@@ -90,12 +105,12 @@ fun MainPage() {
     }
 }
 
-private enum class TabsList(val tab: TabRoute, val title: String) {
-    TabHome(TabRoute.TabHome, "TabHome"),
-    TabCatalog(TabRoute.TabCatalog, "TabCatalog"),
-    TabCart(TabRoute.TabCart, "TabCart"),
-    TabFavorites(TabRoute.TabFavorites, "TabFavorites"),
-    TabProfile(TabRoute.TabProfile, "TabProfile"),
+private enum class TabsList(val tab: TabRoute, val title: StringResource, val res: DrawableResource) {
+    TabHome(TabRoute.TabHome, Res.string.home, Res.drawable.ic_nav_1),
+    TabCatalog(TabRoute.TabCatalog, Res.string.catalog, Res.drawable.ic_nav_2),
+    TabCart(TabRoute.TabCart, Res.string.cart, Res.drawable.ic_nav_3),
+    TabFavorites(TabRoute.TabFavorites, Res.string.favorites, Res.drawable.ic_nav_4),
+    TabProfile(TabRoute.TabProfile, Res.string.profile, Res.drawable.ic_nav_5),
 }
 
 @Serializable
