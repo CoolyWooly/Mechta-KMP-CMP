@@ -6,20 +6,51 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kz.mechta.core_data.domain.model.CityModel
+import kz.mechta.core_data.domain.model.Resource
+import kz.mechta.core_data.domain.use_case.GetCitiesUseCase
 
-internal class OnboardingViewModel : ViewModel() {
-    private val _state = MutableStateFlow(State())
-    val state: StateFlow<State> = _state
+internal class OnboardingViewModel(
+    private val getCitiesUseCase: GetCitiesUseCase
+) : ViewModel(), OnboardingContract {
+    private val mutableState = MutableStateFlow(OnboardingContract.State())
+    override val state: StateFlow<OnboardingContract.State> = mutableState.asStateFlow()
 
-    private val _effect = MutableSharedFlow<Effect>()
-    val effect: SharedFlow<Effect> = _effect
+    private val effectFlow = MutableSharedFlow<OnboardingContract.Effect>()
+    override val effect: SharedFlow<OnboardingContract.Effect> = effectFlow.asSharedFlow()
 
-    fun handleEvent(event: Event) {
+    override fun event(event: OnboardingContract.Event) {
         when (event) {
-            is Event.NextPage -> { /* обновить _state и т.д. */ }
-            is Event.Finish -> { viewModelScope.launch { _effect.emit(Effect.NavigateToHome) } }
-            // другие ивенты
+            is OnboardingContract.Event.OnCityClick -> onCityClick(event.cityModel)
+        }
+    }
+
+    init {
+        getCities()
+    }
+
+    private fun getCities() {
+        viewModelScope.launch {
+            when (val data = getCitiesUseCase()) {
+                is Resource.Failure -> {
+
+                }
+                is Resource.Success -> {
+                    mutableState.update {
+                        it.copy(cities = data.value)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onCityClick(cityModel: CityModel) {
+        viewModelScope.launch {
+            effectFlow.emit(OnboardingContract.Effect.NavigateToMain)
         }
     }
 }

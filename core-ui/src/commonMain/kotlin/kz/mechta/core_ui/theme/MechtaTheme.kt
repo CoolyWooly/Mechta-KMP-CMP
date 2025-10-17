@@ -18,7 +18,7 @@ fun MechtaTheme(
 ) {
     CompositionLocalProvider(
         LocalCustomColors provides getColors(isDark),
-//        LocalCustomTypography provides getTypography(),
+        LocalCustomTypography provides getTypography(),
         LocalCustomRadius provides getRadius(),
     ) {
         MaterialTheme(

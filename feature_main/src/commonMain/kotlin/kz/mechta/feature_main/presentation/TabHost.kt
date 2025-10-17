@@ -1,0 +1,49 @@
+package kz.mechta.feature_main.presentation
+
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
+import kz.mechta.feature_home.presentation.HomePage
+import kz.mechta.feature_main.presentation.Route
+
+@Composable
+internal fun TabHost(
+    startDestination: Route,
+) {
+    val tabNavController = rememberNavController()
+    NavHost(
+        navController = tabNavController,
+        startDestination = startDestination
+    ) {
+        composable<Route.HomeRoute> {
+            HomePage("HomeRoute", onClick = {
+                tabNavController.navigate(Route.CatalogRoute)
+            })
+        }
+        composable<Route.CatalogRoute> {
+            HomePage("CatalogRoute", onClick = {
+                tabNavController.navigate(Route.HomeRoute)
+            })
+        }
+        composable<Route.CartRoute> {
+            HomePage("CartRoute", onClick = {
+                tabNavController.navigate(Route.HomeRoute)
+            })
+        }
+    }
+}
+
+@Serializable
+internal sealed class Route {
+
+    @Serializable
+    data object HomeRoute : Route()
+
+    @Serializable
+    data object CatalogRoute : Route()
+
+    @Serializable
+    data object CartRoute : Route()
+}

@@ -1,9 +1,12 @@
+import org.jetbrains.compose.resources.ResourcesExtension
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.androidLint)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+//    alias(libs.plugins.composeResources)
 }
 
 kotlin {
@@ -24,6 +27,7 @@ kotlin {
         }.configure {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
 
     // For iOS targets, this is also where you should
@@ -104,5 +108,10 @@ kotlin {
             }
         }
     }
+}
 
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "kz.mechta.core_ui.generated.resources"
+    generateResClass = ResourcesExtension.ResourceClassGeneration.Always
 }

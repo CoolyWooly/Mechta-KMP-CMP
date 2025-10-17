@@ -51,6 +51,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
 
+            implementation(project(":core-data"))
             implementation(project(":core-ui"))
             implementation(project(":feature_splashscreen"))
             implementation(project(":feature_onboarding"))

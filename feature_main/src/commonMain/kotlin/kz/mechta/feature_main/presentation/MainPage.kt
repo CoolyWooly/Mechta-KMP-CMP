@@ -1,8 +1,6 @@
 package kz.mechta.feature_main.presentation
 
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -25,15 +23,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 import kz.mechta.feature_home.presentation.HomePage
-import kz.mechta.feature_tab_catalog.presentation.TabCatalogPage
 import mechtakmp.feature_main.generated.resources.Res
 import org.koin.compose.viewmodel.koinViewModel
 
-private inline fun <reified T : Any> NavDestination?.isOnRoute(): Boolean {
-    return this?.hierarchy?.any { it.hasRoute<T>() } == true
-}
-
-    @Composable
+@Composable
 fun MainPage() {
     val rootNavController = rememberNavController()
     Scaffold(
@@ -43,17 +36,18 @@ fun MainPage() {
                 val currentRootDestination = currentBackStack?.destination
                 TabsList.values().forEach { tab ->
                     val selected = when (tab.tab) {
-                        AppTab.TabHome    -> currentRootDestination.isOnRoute<AppTab.TabHome>()
-                        AppTab.TabCatalog -> currentRootDestination.isOnRoute<AppTab.TabCatalog>()
-                        AppTab.TabCart    -> currentRootDestination.isOnRoute<AppTab.TabCart>()
+                        TabRoute.TabHome -> currentRootDestination.isOnRoute<TabRoute.TabHome>()
+                        TabRoute.TabCatalog -> currentRootDestination.isOnRoute<TabRoute.TabCatalog>()
+                        TabRoute.TabCart -> currentRootDestination.isOnRoute<TabRoute.TabCart>()
+                        TabRoute.TabFavorites -> currentRootDestination.isOnRoute<TabRoute.TabFavorites>()
+                        TabRoute.TabProfile -> currentRootDestination.isOnRoute<TabRoute.TabProfile>()
                     }
-
                     NavigationBarItem(
                         icon = {
-                            Icon(
-                                imageVector = Icons.Filled.Home,
-                                contentDescription = null
-                            )
+//                            Icon(
+//                                imageVector = Icons.Filled.Home,
+//                                contentDescription = null
+//                            )
                         },
                         label = { Text(tab.title) },
                         selected = selected,
@@ -75,79 +69,55 @@ fun MainPage() {
     ) { innerPadding ->
         NavHost(
             navController = rootNavController,
-            startDestination = AppTab.TabHome
+            startDestination = TabRoute.TabHome
         ) {
-            composable<AppTab.TabHome> {
+            composable<TabRoute.TabHome> {
                 TabHost(startDestination = Route.HomeRoute)
             }
-            composable<AppTab.TabCatalog> {
+            composable<TabRoute.TabCatalog> {
                 TabHost(startDestination = Route.CatalogRoute)
             }
-            composable<AppTab.TabCart> {
+            composable<TabRoute.TabCart> {
+                TabHost(startDestination = Route.CartRoute)
+            }
+            composable<TabRoute.TabFavorites> {
+                TabHost(startDestination = Route.CartRoute)
+            }
+            composable<TabRoute.TabProfile> {
                 TabHost(startDestination = Route.CartRoute)
             }
         }
     }
 }
 
-
-internal enum class TabsList(val tab: AppTab, val title: String) {
-    TabHome(AppTab.TabHome, "TabHome"),
-    TabCatalog(AppTab.TabCatalog, "TabCatalog"),
-    TabCart(AppTab.TabCart, "TabCart")
+private enum class TabsList(val tab: TabRoute, val title: String) {
+    TabHome(TabRoute.TabHome, "TabHome"),
+    TabCatalog(TabRoute.TabCatalog, "TabCatalog"),
+    TabCart(TabRoute.TabCart, "TabCart"),
+    TabFavorites(TabRoute.TabFavorites, "TabFavorites"),
+    TabProfile(TabRoute.TabProfile, "TabProfile"),
 }
 
 @Serializable
-internal sealed class AppTab {
+private sealed class TabRoute {
 
     @Serializable
-    data object TabHome : AppTab()
+    data object TabHome : TabRoute()
 
     @Serializable
-    data object TabCatalog : AppTab()
+    data object TabCatalog : TabRoute()
 
     @Serializable
-    data object TabCart : AppTab()
+    data object TabCart : TabRoute()
 
+    @Serializable
+    data object TabFavorites : TabRoute()
+
+    @Serializable
+    data object TabProfile : TabRoute()
 }
 
-@Serializable
-internal sealed class Route {
 
-    @Serializable
-    data object HomeRoute : Route()
-
-    @Serializable
-    data object CatalogRoute : Route()
-
-    @Serializable
-    data object CartRoute : Route()
-
-}
-
-@Composable
-private fun TabHost(
-    startDestination: Route,
-) {
-    val tabNavController = rememberNavController()
-    NavHost(
-        navController = tabNavController,
-        startDestination = startDestination
-    ) {
-        composable<Route.HomeRoute> {
-            HomePage("HomeRoute", onClick = {
-                tabNavController.navigate(Route.CatalogRoute)
-            })
-        }
-        composable<Route.CatalogRoute> {
-            HomePage("CatalogRoute", onClick = {
-                tabNavController.navigate(Route.HomeRoute)
-            })
-        }
-        composable<Route.CartRoute> {
-            HomePage("CartRoute", onClick = {
-                tabNavController.navigate(Route.HomeRoute)
-            })
-        }
-    }
+private inline fun <reified T : Any> NavDestination?.isOnRoute(): Boolean {
+    return this?.hierarchy?.any { it.hasRoute<T>() } == true
 }

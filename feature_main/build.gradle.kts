@@ -83,7 +83,6 @@ kotlin {
                 implementation(libs.koin.compose.viewmodel.navigation)
 
                 implementation(project(":feature_home"))
-                implementation(project(":feature_tab_catalog"))
             }
         }
 

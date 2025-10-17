@@ -8,27 +8,36 @@ import kz.mechta.core_ui.theme.MechtaTheme
 import kz.mechta.feature_onboarding.di.onboardingModule
 import kz.mechta.feature_splashscreen.di.splashscreenModule
 import kotlinx.serialization.Serializable
+import kz.mechta.core_data.di.coreNetworkModule
+import kz.mechta.core_data.di.coreRepositoryModule
+import kz.mechta.core_data.di.coreUseCaseModule
 import kz.mechta.feature_main.presentation.MainPage
 import kz.mechta.feature_onboarding.presentation.OnboardingPage
 import kz.mechta.feature_splashscreen.presentation.SplashscreenPage
 import org.koin.core.context.startKoin
 
 @Serializable
-data object SplashscreenRoute
+private sealed class RootRoute() {
 
-@Serializable
-data object OnboardingRoute
+    @Serializable
+    data object SplashscreenRoute: RootRoute()
 
-@Serializable
-data object MainRoute
+    @Serializable
+    data object OnboardingRoute: RootRoute()
+
+    @Serializable
+    data object MainRoute: RootRoute()
+}
+
 
 @Composable
-fun App(
-    onFinishAppClick: () -> Unit
-) {
+fun App() {
     startKoin {
         modules(
             listOf(
+                coreNetworkModule,
+                coreRepositoryModule,
+                coreUseCaseModule,
                 splashscreenModule,
                 onboardingModule,
             )
@@ -39,26 +48,26 @@ fun App(
     MechtaTheme {
         NavHost(
             navController = navController,
-            startDestination = SplashscreenRoute
+            startDestination = RootRoute.SplashscreenRoute
         ) {
-            composable<SplashscreenRoute> {
+            composable<RootRoute.SplashscreenRoute> {
                 SplashscreenPage(
                     navigateToOnboarding = {
-                        navController.navigate(OnboardingRoute)
+                        navController.navigate(RootRoute.OnboardingRoute)
                     },
                     navigateToMain = {
-                        navController.navigate(MainRoute)
+                        navController.navigate(RootRoute.MainRoute)
                     }
                 )
             }
-            composable<OnboardingRoute> { backStackEntry ->
+            composable<RootRoute.OnboardingRoute> { backStackEntry ->
                 OnboardingPage(
                     navigateToMain = {
-                        navController.navigate(MainRoute)
+                        navController.navigate(RootRoute.MainRoute)
                     }
                 )
             }
-            composable<MainRoute> { backStackEntry ->
+            composable<RootRoute.MainRoute> { backStackEntry ->
                 MainPage(
 //                    navigateToMain = {
 //                        navController.navigate(MainRoute)
