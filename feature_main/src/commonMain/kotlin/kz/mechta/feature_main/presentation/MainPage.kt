@@ -1,5 +1,7 @@
 package kz.mechta.feature_main.presentation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -84,7 +86,11 @@ fun MainPage() {
     ) { innerPadding ->
         NavHost(
             navController = rootNavController,
-            startDestination = TabRoute.TabHome
+            startDestination = TabRoute.TabHome,
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None },
+            popEnterTransition = { EnterTransition.None },
+            popExitTransition = { ExitTransition.None }
         ) {
             composable<TabRoute.TabHome> {
                 TabHost(startDestination = Route.HomeRoute)

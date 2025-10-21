@@ -34,44 +34,50 @@ private sealed class RootRoute() {
 
 @Composable
 fun App() {
-    LaunchedEffect(Unit) {
-        startKoin {
-            modules(coreNetworkModule, coreRepositoryModule, coreUseCaseModule, splashscreenModule, onboardingModule)
+    KoinApplication(
+        application = {
+            modules(
+                coreNetworkModule,
+                coreRepositoryModule,
+                coreUseCaseModule,
+                splashscreenModule,
+                onboardingModule,
+            )
         }
-    }
-
-    val navController = rememberNavController()
-    MechtaTheme {
-        NavHost(
-            navController = navController,
-            startDestination = RootRoute.SplashscreenRoute
-        ) {
-            composable<RootRoute.SplashscreenRoute> {
-                SplashscreenPage(
-                    navigateToOnboarding = {
-                        navController.popBackStack()
-                        navController.navigate(RootRoute.OnboardingRoute)
-                    },
-                    navigateToMain = {
-                        navController.popBackStack()
-                        navController.navigate(RootRoute.MainRoute)
-                    }
-                )
-            }
-            composable<RootRoute.OnboardingRoute> { backStackEntry ->
-                OnboardingPage(
-                    navigateToMain = {
-                        navController.popBackStack()
-                        navController.navigate(RootRoute.MainRoute)
-                    }
-                )
-            }
-            composable<RootRoute.MainRoute> { backStackEntry ->
-                MainPage(
+    ) {
+        val navController = rememberNavController()
+        MechtaTheme {
+            NavHost(
+                navController = navController,
+                startDestination = RootRoute.SplashscreenRoute
+            ) {
+                composable<RootRoute.SplashscreenRoute> {
+                    SplashscreenPage(
+                        navigateToOnboarding = {
+                            navController.popBackStack()
+                            navController.navigate(RootRoute.OnboardingRoute)
+                        },
+                        navigateToMain = {
+                            navController.popBackStack()
+                            navController.navigate(RootRoute.MainRoute)
+                        }
+                    )
+                }
+                composable<RootRoute.OnboardingRoute> { backStackEntry ->
+                    OnboardingPage(
+                        navigateToMain = {
+                            navController.popBackStack()
+                            navController.navigate(RootRoute.MainRoute)
+                        }
+                    )
+                }
+                composable<RootRoute.MainRoute> { backStackEntry ->
+                    MainPage(
 //                    navigateToMain = {
 //                        navController.navigate(MainRoute)
 //                    }
-                )
+                    )
+                }
             }
         }
     }
