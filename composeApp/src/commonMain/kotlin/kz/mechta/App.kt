@@ -1,24 +1,22 @@
 package kz.mechta
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kz.mechta.core_ui.theme.MechtaTheme
-import kz.mechta.feature_onboarding.di.onboardingModule
-import kz.mechta.feature_splashscreen.di.splashscreenModule
 import kotlinx.serialization.Serializable
 import kz.mechta.core_data.di.coreNetworkModule
 import kz.mechta.core_data.di.coreRepositoryModule
 import kz.mechta.core_data.di.coreUseCaseModule
 import kz.mechta.core_data.di.prefsModule
+import kz.mechta.core_ui.theme.MechtaTheme
 import kz.mechta.feature_main.di.mainModules
 import kz.mechta.feature_main.presentation.MainPage
+import kz.mechta.feature_onboarding.di.onboardingModule
 import kz.mechta.feature_onboarding.presentation.OnboardingPage
+import kz.mechta.feature_splashscreen.di.splashscreenModule
 import kz.mechta.feature_splashscreen.presentation.SplashscreenPage
 import org.koin.compose.KoinApplication
-import org.koin.core.KoinApplication
-import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 
 @Serializable
@@ -48,7 +46,7 @@ fun App(
                 coreUseCaseModule,
                 splashscreenModule,
                 onboardingModule,
-                prefsModule
+                prefsModule,
                 mainModules,
             )
         }
