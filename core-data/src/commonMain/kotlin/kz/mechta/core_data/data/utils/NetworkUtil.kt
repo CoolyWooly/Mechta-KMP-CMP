@@ -17,7 +17,7 @@ import kotlinx.serialization.json.JsonNames
 import kz.mechta.core_data.data.model.ErrorResponseDto
 import kz.mechta.core_data.domain.model.Resource
 
-internal object NetworkUtil {
+object NetworkUtil {
 
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T

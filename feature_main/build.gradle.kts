@@ -73,7 +73,6 @@ kotlin {
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 // Navigation
-
                 implementation(libs.navigation.compose)
                 // DI
                 implementation(project.dependencies.platform(libs.koin.bom))
@@ -84,6 +83,7 @@ kotlin {
 
                 implementation(project(":core-ui"))
                 implementation(project(":feature_home"))
+                implementation(project(":feature_catalog"))
             }
         }
 
@@ -119,5 +119,4 @@ kotlin {
             }
         }
     }
-
 }

@@ -25,9 +25,7 @@ val coreNetworkModule = module {
 }
 
 val coreRepositoryModule = module {
-    single<CityRepository> {
-        CityRepositoryImpl(get(), get())
-    }
+    single<CityRepository> { CityRepositoryImpl(get(), get()) }
 }
 
 val coreUseCaseModule = module {

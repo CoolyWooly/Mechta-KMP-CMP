@@ -11,6 +11,7 @@ import kotlinx.serialization.Serializable
 import kz.mechta.core_data.di.coreNetworkModule
 import kz.mechta.core_data.di.coreRepositoryModule
 import kz.mechta.core_data.di.coreUseCaseModule
+import kz.mechta.feature_main.di.mainModules
 import kz.mechta.feature_main.presentation.MainPage
 import kz.mechta.feature_onboarding.presentation.OnboardingPage
 import kz.mechta.feature_splashscreen.presentation.SplashscreenPage
@@ -42,6 +43,7 @@ fun App() {
                 coreUseCaseModule,
                 splashscreenModule,
                 onboardingModule,
+                mainModules,
             )
         }
     ) {

@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
+import kz.mechta.feature_catalog.presentation.CatalogPage
 import kz.mechta.feature_home.presentation.HomePage
 import kz.mechta.feature_main.presentation.Route
 
@@ -23,9 +24,13 @@ internal fun TabHost(
             })
         }
         composable<Route.CatalogRoute> {
-            HomePage("CatalogRoute", onClick = {
-                tabNavController.navigate(Route.HomeRoute)
-            })
+            CatalogPage(
+                navigateToSearch = {},
+                navigateToQr = { },
+                navigateToSubcatalog = {  },
+                navigateToBrand = { _, _, _ ->  },
+                navigateToDeeplink = {  }
+            )
         }
         composable<Route.CartRoute> {
             HomePage("CartRoute", onClick = {
