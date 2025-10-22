@@ -69,8 +69,8 @@ kotlin {
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 // Local storage
-                implementation(libs.multiplatform.settings)
-                implementation(libs.multiplatform.settings.no.arg)
+                implementation(libs.datastore)
+                implementation(libs.datastore.preferences)
                 // Koin
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
@@ -89,6 +89,7 @@ kotlin {
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
                 implementation(libs.ktor.client.okhttp)
+                implementation(libs.koin.android)
             }
         }
 

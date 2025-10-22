@@ -1,21 +1,18 @@
 package kz.mechta.core_data.di
 
-import com.russhwolf.settings.Settings
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 import kz.mechta.core_data.data.api.CityApi
 import kz.mechta.core_data.data.network.NetworkClient
+import kz.mechta.core_data.data.repository.AuthRepositoryImpl
 import kz.mechta.core_data.data.repository.CityRepositoryImpl
-import kz.mechta.core_data.domain.repository.PrefsRepository
-import kz.mechta.core_data.data.repository.PrefsRepositoryImpl
 import kz.mechta.core_data.data.utils.NetworkUtil
-import org.koin.dsl.module
+import kz.mechta.core_data.domain.repository.AuthRepository
 import kz.mechta.core_data.domain.repository.CityRepository
 import kz.mechta.core_data.domain.use_case.GetCitiesUseCase
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
 val coreNetworkModule = module {
-    single<Settings> { Settings() }
-
-    single<PrefsRepository> { PrefsRepositoryImpl(get()) }
 
     single<HttpClient> { NetworkClient(get()).httpClient }
 
@@ -25,9 +22,14 @@ val coreNetworkModule = module {
 }
 
 val coreRepositoryModule = module {
+
     single<CityRepository> { CityRepositoryImpl(get(), get()) }
+
+    single<AuthRepository> { AuthRepositoryImpl(get()) }
 }
 
 val coreUseCaseModule = module {
     factory { GetCitiesUseCase(get()) }
 }
+
+expect val prefsModule: Module

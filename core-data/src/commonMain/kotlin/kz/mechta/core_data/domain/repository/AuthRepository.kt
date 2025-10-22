@@ -1,7 +1,9 @@
 package kz.mechta.core_data.domain.repository
 
-interface PrefsRepository {
+import kotlinx.coroutines.flow.Flow
+
+interface AuthRepository {
     suspend fun saveToken(token: String)
-    suspend fun getToken(): String?
+    suspend fun getToken(): Flow<String?>
     suspend fun clearToken()
 }

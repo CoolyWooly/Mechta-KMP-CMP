@@ -12,15 +12,9 @@ import org.koin.dsl.module
 
 val catalogKoinModule = module {
 
-//    single { CatalogApi(client = get()) }
-    single(createdAtStart = true) {
-        println(">>> catalogKoinModule: CatalogApi createdAtStart")
-        CatalogApi(client = get())
-    }
+    single { CatalogApi(client = get()) }
     single<CatalogRepository> { CatalogRepositoryImpl(api = get(), networkUtil = get()) }
-//    viewModel { CatalogViewModel(get(), get(), ) }
     viewModelOf(::CatalogViewModel)
-//    factory { CatalogViewModel(get(), get()) }
     factory { GetCatalogUseCase(catalogRepository = get()) }
     factory { GetBrandsUseCase(catalogRepository = get()) }
 }
