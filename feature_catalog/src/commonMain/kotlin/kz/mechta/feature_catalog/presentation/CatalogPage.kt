@@ -1,9 +1,13 @@
 package kz.mechta.feature_catalog.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -89,7 +93,6 @@ private fun CatalogScreen(
 //        state = popUpState,
 //    ) {
         Scaffold(
-            modifier = Modifier.safeContentPadding(),
             containerColor = MechtaTheme.colors.baseGenericSolid,
             topBar = {
                 TopBar(

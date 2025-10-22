@@ -3,9 +3,14 @@ package kz.mechta.feature_onboarding.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -29,9 +34,7 @@ fun OnboardingPage(
 ) {
     val viewModel = koinViewModel<OnboardingViewModel>()
     val (state, event, effect) = use(viewModel = viewModel)
-
     Scaffold(
-        modifier = Modifier.safeContentPadding(),
         topBar = {
             CustomTopAppBar(
                 text = stringResource(Res.string.mechta_bonuses),

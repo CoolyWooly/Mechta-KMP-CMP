@@ -1,6 +1,8 @@
 package kz.mechta
 
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -50,6 +52,7 @@ fun App() {
         val navController = rememberNavController()
         MechtaTheme {
             NavHost(
+                modifier = Modifier.systemBarsPadding(),
                 navController = navController,
                 startDestination = RootRoute.SplashscreenRoute
             ) {
