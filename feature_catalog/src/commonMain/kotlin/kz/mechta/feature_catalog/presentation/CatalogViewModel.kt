@@ -31,7 +31,7 @@ internal class CatalogViewModel(
 //    private val sendEventUseCase: SendEventUseCase,
     private val getCatalogUseCase: GetCatalogUseCase,
     private val getBrandsUseCase: GetBrandsUseCase,
-//    private val savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
 //    private val stringResourcesProvider: StringResourcesProvider
 ) : ViewModel(), CatalogContract {
 
@@ -41,7 +41,7 @@ internal class CatalogViewModel(
     private val effectFlow = MutableSharedFlow<CatalogContract.Effect>()
     override val effect: SharedFlow<CatalogContract.Effect> = effectFlow.asSharedFlow()
 
-//    private val args = savedStateHandle.get<CatalogPageArgs>(NAV_ARGS_KEY)
+    private val args = savedStateHandle.get<CatalogPageArgs>(NAV_ARGS_KEY)
 
     init {
         initState()
@@ -62,11 +62,11 @@ internal class CatalogViewModel(
     }
 
     private fun initState() {
-//        mutableState.update {
-//            it.copy(
-//                tabIndex = args?.tabIndex ?: 0,
-//            )
-//        }
+        mutableState.update {
+            it.copy(
+                tabIndex = args?.tabIndex ?: 0,
+            )
+        }
     }
 
     private fun onResume() {
