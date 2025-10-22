@@ -26,7 +26,6 @@ val coreRepositoryModule = module {
     single<CityRepository> { CityRepositoryImpl(get(), get()) }
 
     single<AuthRepository> { AuthRepositoryImpl(get()) }
-
 }
 
 val coreUseCaseModule = module {

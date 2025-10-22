@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import kz.mechta.core_ui.components.CustomTopAppBar
 import kz.mechta.core_ui.generated.resources.Res
-import kz.mechta.core_ui.generated.resources.app_name
+import kz.mechta.core_ui.generated.resources.mechta_bonuses
 import kz.mechta.core_ui.utils.collectInLaunchedEffect
 import kz.mechta.core_ui.utils.use
 import org.jetbrains.compose.resources.stringResource
@@ -34,7 +34,7 @@ fun OnboardingPage(
         modifier = Modifier.safeContentPadding(),
         topBar = {
             CustomTopAppBar(
-                text = stringResource(Res.string.app_name),
+                text = stringResource(Res.string.mechta_bonuses),
             )
         }
     ) {
