@@ -11,12 +11,14 @@ import kotlinx.serialization.Serializable
 import kz.mechta.core_data.di.coreNetworkModule
 import kz.mechta.core_data.di.coreRepositoryModule
 import kz.mechta.core_data.di.coreUseCaseModule
+import kz.mechta.core_data.di.prefsModule
 import kz.mechta.feature_main.presentation.MainPage
 import kz.mechta.feature_onboarding.presentation.OnboardingPage
 import kz.mechta.feature_splashscreen.presentation.SplashscreenPage
 import org.koin.compose.KoinApplication
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
+import org.koin.dsl.KoinAppDeclaration
 
 @Serializable
 private sealed class RootRoute() {
@@ -33,15 +35,19 @@ private sealed class RootRoute() {
 
 
 @Composable
-fun App() {
+fun App(
+    koinAppDeclaration: KoinAppDeclaration? = null
+) {
     KoinApplication(
         application = {
+            koinAppDeclaration?.invoke(this)
             modules(
                 coreNetworkModule,
                 coreRepositoryModule,
                 coreUseCaseModule,
                 splashscreenModule,
                 onboardingModule,
+                prefsModule
             )
         }
     ) {

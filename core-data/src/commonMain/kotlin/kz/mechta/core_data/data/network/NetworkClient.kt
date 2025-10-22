@@ -9,12 +9,13 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kz.mechta.core_data.domain.repository.PrefsRepository
+import kz.mechta.core_data.domain.repository.AuthRepository
 
 internal class NetworkClient(
-    private val prefsRepository: PrefsRepository
+    private val authRepository: AuthRepository
 ) {
     val httpClient = HttpClient {
         install(ContentNegotiation) {
@@ -28,7 +29,7 @@ internal class NetworkClient(
         install(Auth) {
             bearer {
                 loadTokens {
-                    val token = prefsRepository.getToken()
+                    val token = authRepository.getToken().first()
                     if (token != null) {
                         BearerTokens(accessToken = token, refreshToken = null)
                     } else null
