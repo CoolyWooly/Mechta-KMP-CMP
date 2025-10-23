@@ -2,16 +2,24 @@ package kz.mechta.feature_main.presentation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -35,6 +43,7 @@ import kz.mechta.core_ui.generated.resources.ic_nav_3
 import kz.mechta.core_ui.generated.resources.ic_nav_4
 import kz.mechta.core_ui.generated.resources.ic_nav_5
 import kz.mechta.core_ui.generated.resources.profile
+import kz.mechta.core_ui.theme.MechtaTheme
 import kz.mechta.feature_home.presentation.HomePage
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -47,43 +56,63 @@ fun MainPage() {
     val rootNavController = rememberNavController()
     Scaffold(
         bottomBar = {
-            NavigationBar {
-                val currentBackStack by rootNavController.currentBackStackEntryAsState()
-                val currentRootDestination = currentBackStack?.destination
-                TabsList.values().forEach { tab ->
-                    val selected = when (tab.tab) {
-                        TabRoute.TabHome -> currentRootDestination.isOnRoute<TabRoute.TabHome>()
-                        TabRoute.TabCatalog -> currentRootDestination.isOnRoute<TabRoute.TabCatalog>()
-                        TabRoute.TabCart -> currentRootDestination.isOnRoute<TabRoute.TabCart>()
-                        TabRoute.TabFavorites -> currentRootDestination.isOnRoute<TabRoute.TabFavorites>()
-                        TabRoute.TabProfile -> currentRootDestination.isOnRoute<TabRoute.TabProfile>()
-                    }
-                    NavigationBarItem(
-                        icon = {
-                            Icon(
-                                painter = painterResource(tab.res),
-                                contentDescription = null
-                            )
-                        },
-                        label = { Text(stringResource(tab.title)) },
-                        selected = selected,
-                        onClick = {
-                            // При нажатии на вкладку выполняем навигацию:
-                            rootNavController.navigate(tab.tab) {
-                                // Настройки NavOptions для поддержки нескольких бэкстеков:
-                                popUpTo(rootNavController.graph.findStartDestination().id) {
-                                    saveState = true  // Сохранить состояние текущего графа
-                                }
-                                launchSingleTop = true  // Не создавать дубликатов в бэкстеке
-                                restoreState = true     // Восстановить сохранённый состояние при возврате на вкладку
-                            }
+            Column {
+                HorizontalDivider(
+                    modifier = Modifier.fillMaxWidth(),
+                    thickness = 0.5.dp,
+                    color = MechtaTheme.colors.lineGeneric
+                )
+                NavigationBar(
+                    containerColor = MechtaTheme.colors.brandBaseBackground,
+                ) {
+                    val currentBackStack by rootNavController.currentBackStackEntryAsState()
+                    val currentRootDestination = currentBackStack?.destination
+                    TabsList.values().forEach { tab ->
+                        val selected = when (tab.tab) {
+                            TabRoute.TabHome -> currentRootDestination.isOnRoute<TabRoute.TabHome>()
+                            TabRoute.TabCatalog -> currentRootDestination.isOnRoute<TabRoute.TabCatalog>()
+                            TabRoute.TabCart -> currentRootDestination.isOnRoute<TabRoute.TabCart>()
+                            TabRoute.TabFavorites -> currentRootDestination.isOnRoute<TabRoute.TabFavorites>()
+                            TabRoute.TabProfile -> currentRootDestination.isOnRoute<TabRoute.TabProfile>()
                         }
-                    )
+                        NavigationBarItem(
+                            colors = NavigationBarItemDefaults.colors(
+                                indicatorColor = Color.Transparent,
+                                selectedIconColor = MechtaTheme.colors.brandTextBrand,
+                                selectedTextColor = MechtaTheme.colors.brandTextBrand,
+                                unselectedIconColor = MechtaTheme.colors.textSecondary,
+                                unselectedTextColor = MechtaTheme.colors.textSecondary
+                            ),
+                            icon = {
+                                Icon(
+                                    painter = painterResource(tab.res),
+                                    contentDescription = null,
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(tab.title),
+                                    style = MechtaTheme.typography.textBody1,
+                                )
+                            },
+                            selected = selected,
+                            onClick = {
+                                rootNavController.navigate(tab.tab) {
+                                    popUpTo(rootNavController.graph.findStartDestination().id) {
+                                        saveState = true  // Сохранить состояние текущего графа
+                                    }
+                                    launchSingleTop = true  // Не создавать дубликатов в бэкстеке
+                                    restoreState = true     // Восстановить состояние при возврате
+                                }
+                            }
+                        )
+                    }
                 }
             }
         }
     ) { innerPadding ->
         NavHost(
+            modifier = Modifier.padding(innerPadding),
             navController = rootNavController,
             startDestination = TabRoute.TabHome,
             enterTransition = { EnterTransition.None },

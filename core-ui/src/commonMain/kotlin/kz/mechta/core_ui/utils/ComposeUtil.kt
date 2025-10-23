@@ -80,7 +80,7 @@ fun SpacerNavigationBar() {
 
 fun Modifier.shimmerEffect(): Modifier = composed {
     val themeColors = MechtaTheme.colors
-    val colors = remember(themeColors.textPrimary, themeColors.textSecondary) { listOf(themeColors.textSecondary, themeColors.textPrimary, themeColors.textSecondary) }
+    val colors = remember(themeColors.baseGenericHover, themeColors.baseGeneric) { listOf(themeColors.baseGeneric, themeColors.baseGenericHover, themeColors.baseGeneric) }
 
     val progress by rememberInfiniteTransition()
         .animateFloat(
