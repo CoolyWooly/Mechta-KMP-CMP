@@ -22,6 +22,7 @@ ktor = "3.3.1"
 material-icons = "1.7.3"
 navigation = "2.9.0"
 runner = "1.5.2"
+sqldelight = "2.1.0"
 
 [libraries]
 # Kotlin
@@ -29,6 +30,13 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+# Android
+material-icons-core = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "material-icons" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 # Navigation
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 # Koin
@@ -53,13 +61,10 @@ ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kto
 # Local Storage
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
-# Android
-material-icons-core = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "material-icons" }
-androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+# DB
+sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
+sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 # Test
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
@@ -77,3 +82,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 androidKotlinMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 androidLint = { id = "com.android.lint", version.ref = "agp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }

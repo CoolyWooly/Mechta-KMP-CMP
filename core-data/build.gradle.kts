@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.androidLint)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -71,6 +72,8 @@ kotlin {
                 // Local storage
                 implementation(libs.datastore)
                 implementation(libs.datastore.preferences)
+                // DB
+                implementation(libs.sqldelight.runtime)
                 // Koin
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
@@ -85,11 +88,11 @@ kotlin {
 
         androidMain {
             dependencies {
-                // Add Android-specific dependencies here. Note that this source set depends on
-                // commonMain by default and will correctly pull the Android artifacts of any KMP
-                // dependencies declared in commonMain.
+                // Network
                 implementation(libs.ktor.client.okhttp)
                 implementation(libs.koin.android)
+                // DB
+                implementation(libs.sqldelight.android.driver)
             }
         }
 
@@ -103,14 +106,20 @@ kotlin {
 
         iosMain {
             dependencies {
-                // Add iOS-specific dependencies here. This a source set created by Kotlin Gradle
-                // Plugin (KGP) that each specific iOS target (e.g., iosX64) depends on as
-                // part of KMP’s default source set hierarchy. Note that this source set depends
-                // on common by default and will correctly pull the iOS artifacts of any
-                // KMP dependencies declared in commonMain.
+                // Network
                 implementation(libs.ktor.client.darwin)
+                // DB
+                implementation(libs.sqldelight.native.driver)
             }
         }
     }
+}
 
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("kz.mechta.core_data.data.db")
+            // sourceFolders.set(listOf("sqldelight")) // опционально: где лежат .sq файлы
+        }
+    }
 }
