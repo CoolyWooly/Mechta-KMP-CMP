@@ -1,4 +1,4 @@
-package kz.mechta.core_data.data.local
+package kz.mechta.core_data.data.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory

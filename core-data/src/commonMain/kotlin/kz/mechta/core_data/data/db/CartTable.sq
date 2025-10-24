@@ -1,7 +1,15 @@
 CREATE TABLE CartTable (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    productId INTEGER NOT NULL,
+    productId INTEGER NOT NULL PRIMARY KEY,
     quantity INTEGER NOT NULL,
     gifts TEXT,
     tradeIn TEXT
 );
+
+add:
+INSERT INTO CartTable(productId, quantity, gifts, tradeIn) VALUES (?, ?, ?, ?);
+
+remove:
+DELETE FROM CartTable WHERE productId = ?;
+
+clear:
+DELETE FROM CartTable;
