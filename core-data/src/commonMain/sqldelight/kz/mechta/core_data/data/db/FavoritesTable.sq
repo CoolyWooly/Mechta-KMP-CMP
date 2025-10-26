@@ -3,7 +3,7 @@ CREATE TABLE FavoritesTable (
 );
 
 add:
-INSERT INTO FavoritesTable(id) VALUES (?);
+INSERT OR REPLACE INTO FavoritesTable(id) VALUES (?);
 
 remove:
 DELETE FROM FavoritesTable WHERE id = ?;

@@ -5,8 +5,14 @@ CREATE TABLE CartTable (
     tradeIn TEXT
 );
 
+track:
+SELECT * FROM CartTable;
+
+get:
+SELECT * FROM CartTable WHERE productId = ?;
+
 add:
-INSERT INTO CartTable(productId, quantity, gifts, tradeIn) VALUES (?, ?, ?, ?);
+INSERT OR REPLACE INTO CartTable(productId, quantity, gifts, tradeIn) VALUES (?, ?, ?, ?);
 
 remove:
 DELETE FROM CartTable WHERE productId = ?;

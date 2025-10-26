@@ -12,10 +12,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kz.mechta.core_data.domain.model.CityModel
 import kz.mechta.core_data.domain.model.Resource
+import kz.mechta.core_data.domain.use_case.AddCartUseCase
 import kz.mechta.core_data.domain.use_case.GetCitiesUseCase
 
 internal class OnboardingViewModel(
-    private val getCitiesUseCase: GetCitiesUseCase
+    private val getCitiesUseCase: GetCitiesUseCase,
 ) : ViewModel(), OnboardingContract {
     private val mutableState = MutableStateFlow(OnboardingContract.State())
     override val state: StateFlow<OnboardingContract.State> = mutableState.asStateFlow()

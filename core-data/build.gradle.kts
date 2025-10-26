@@ -74,6 +74,7 @@ kotlin {
                 implementation(libs.datastore.preferences)
                 // DB
                 implementation(libs.sqldelight.runtime)
+                implementation(libs.sqldelight.coroutines.extensions)
                 // Koin
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
@@ -119,7 +120,7 @@ sqldelight {
     databases {
         create("AppDatabase") {
             packageName.set("kz.mechta.core_data.data.db")
-            // sourceFolders.set(listOf("sqldelight")) // опционально: где лежат .sq файлы
+//             sourceFolders.set(listOf("sqldelight")) // опционально: где лежат .sq файлы
         }
     }
 }
