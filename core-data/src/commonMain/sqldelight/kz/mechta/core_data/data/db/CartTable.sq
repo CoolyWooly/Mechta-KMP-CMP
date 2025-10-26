@@ -1,0 +1,21 @@
+CREATE TABLE CartTable (
+    productId INTEGER NOT NULL PRIMARY KEY,
+    quantity INTEGER NOT NULL,
+    gifts TEXT,
+    tradeIn TEXT
+);
+
+track:
+SELECT * FROM CartTable;
+
+get:
+SELECT * FROM CartTable WHERE productId = ?;
+
+add:
+INSERT OR REPLACE INTO CartTable(productId, quantity, gifts, tradeIn) VALUES (?, ?, ?, ?);
+
+remove:
+DELETE FROM CartTable WHERE productId = ?;
+
+clear:
+DELETE FROM CartTable;

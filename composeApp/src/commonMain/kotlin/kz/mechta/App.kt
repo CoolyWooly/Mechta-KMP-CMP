@@ -8,9 +8,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
+import kz.mechta.core_data.di.coreDBModule
 import kz.mechta.core_data.di.coreNetworkModule
 import kz.mechta.core_data.di.coreRepositoryModule
 import kz.mechta.core_data.di.coreUseCaseModule
+import kz.mechta.core_data.di.databaseDriverModule
 import kz.mechta.core_data.di.prefsModule
 import kz.mechta.core_ui.theme.MechtaTheme
 import kz.mechta.feature_main.di.mainModules
@@ -44,12 +46,13 @@ fun App(
         application = {
             koinAppDeclaration?.invoke(this)
             modules(
+                prefsModule,
                 coreNetworkModule,
+                coreDBModule,
                 coreRepositoryModule,
                 coreUseCaseModule,
                 splashscreenModule,
                 onboardingModule,
-                prefsModule,
                 mainModules,
             )
         }

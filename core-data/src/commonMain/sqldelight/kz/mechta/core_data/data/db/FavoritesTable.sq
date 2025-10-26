@@ -1,0 +1,12 @@
+CREATE TABLE FavoritesTable (
+    id INTEGER NOT NULL PRIMARY KEY
+);
+
+add:
+INSERT OR REPLACE INTO FavoritesTable(id) VALUES (?);
+
+remove:
+DELETE FROM FavoritesTable WHERE id = ?;
+
+clear:
+DELETE FROM FavoritesTable;

@@ -1,38 +1,21 @@
 package kz.mechta.feature_catalog.presentation
 
-import androidx.compose.ui.input.key.Key.Companion.R
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kz.mechta.core_data.domain.model.Resource
 import kz.mechta.core_navigation.NavConstants.NAV_ARGS_KEY
 import kz.mechta.core_navigation.nav_args.CatalogPageArgs
-import kz.mechta.core_ui.generated.resources.Res
-import kz.mechta.core_ui.generated.resources.gift_cards
-import kz.mechta.core_ui.generated.resources.img_gift_card
-import kz.mechta.core_ui.generated.resources.img_promotions_percent
-import kz.mechta.core_ui.generated.resources.promotions
-import kz.mechta.feature_catalog.domain.model.CatalogModel
 import kz.mechta.feature_catalog.domain.use_case.GetBrandsUseCase
 import kz.mechta.feature_catalog.domain.use_case.GetCatalogUseCase
-import kz.mechta.feature_catalog.presentation.util.GIFT_CARDS_LINK
-import kz.mechta.feature_catalog.presentation.util.PROMOTIONS_LINK
-import org.jetbrains.compose.resources.getString
 
 internal class CatalogViewModel(
 //    private val sendEventUseCase: SendEventUseCase,
     private val getCatalogUseCase: GetCatalogUseCase,
     private val getBrandsUseCase: GetBrandsUseCase,
     private val savedStateHandle: SavedStateHandle,
-//    private val stringResourcesProvider: StringResourcesProvider
 ) : ViewModel(), CatalogContract {
 
     private val mutableState = MutableStateFlow(CatalogContract.State())

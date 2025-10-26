@@ -30,11 +30,11 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":core-ui")
+include(":core-data")
+include(":core-common")
 include(":feature_onboarding")
 include(":feature_splashscreen")
 include(":feature_main")
 include(":feature_home")
-include(":core-data")
-include(":core-common")
 include(":feature_catalog")
 include(":core-navigation")
