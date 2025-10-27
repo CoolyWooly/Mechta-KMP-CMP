@@ -1,11 +1,7 @@
-package kz.mechta.core_data.domain.use_case
+package kz.mechta.core_data.domain.use_case.cart
 
-import kotlinx.coroutines.flow.Flow
 import kz.mechta.core_data.domain.model.CartLocalModel
-import kz.mechta.core_data.domain.model.CityModel
-import kz.mechta.core_data.domain.model.Resource
 import kz.mechta.core_data.domain.repository.CartRepository
-import kz.mechta.core_data.domain.repository.CityRepository
 
 class GetCartItemUseCase(
     private val cartRepository: CartRepository

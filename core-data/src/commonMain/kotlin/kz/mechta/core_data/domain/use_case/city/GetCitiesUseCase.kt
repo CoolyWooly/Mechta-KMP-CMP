@@ -1,4 +1,4 @@
-package kz.mechta.core_data.domain.use_case
+package kz.mechta.core_data.domain.use_case.city
 
 import kz.mechta.core_data.domain.model.CityModel
 import kz.mechta.core_data.domain.model.Resource

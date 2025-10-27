@@ -12,7 +12,8 @@ internal interface CatalogContract :
         val isLoadingBrands: Boolean = false,
         val catalogList: List<CatalogModel> = emptyList(),
         val brandsList: List<BrandModel> = emptyList(),
-        val tabIndex: Int = 0
+        val tabIndex: Int = 0,
+        val test: String = ""
     )
 
     sealed class Event {
