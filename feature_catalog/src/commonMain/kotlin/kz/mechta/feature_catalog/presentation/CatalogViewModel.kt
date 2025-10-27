@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kz.mechta.core_data.domain.model.Resource
+import kz.mechta.core_data.domain.use_case.city.GetCityUseCase
 import kz.mechta.core_navigation.NavConstants.NAV_ARGS_KEY
 import kz.mechta.core_navigation.nav_args.CatalogPageArgs
 import kz.mechta.feature_catalog.domain.use_case.GetBrandsUseCase
@@ -15,6 +16,7 @@ internal class CatalogViewModel(
 //    private val sendEventUseCase: SendEventUseCase,
     private val getCatalogUseCase: GetCatalogUseCase,
     private val getBrandsUseCase: GetBrandsUseCase,
+    private val getCityUseCase: GetCityUseCase,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel(), CatalogContract {
 
@@ -49,6 +51,14 @@ internal class CatalogViewModel(
             it.copy(
                 tabIndex = args?.tabIndex ?: 0,
             )
+        }
+        viewModelScope.launch {
+            val city = getCityUseCase()
+            mutableState.update {
+                it.copy(
+                    test = city?.name.orEmpty(),
+                )
+            }
         }
     }
 

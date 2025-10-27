@@ -12,6 +12,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -36,7 +37,6 @@ fun CatalogPage(
     navigateToDeeplink: (String) -> Unit
 ) {
     val viewModel = koinViewModel<CatalogViewModel>()
-//    val viewModel: CatalogViewModel = koinInject()
 
     val (state, event, effect) = use(viewModel = viewModel)
 
@@ -95,14 +95,15 @@ private fun CatalogScreen(
         Scaffold(
             containerColor = MechtaTheme.colors.baseGenericSolid,
             topBar = {
-                TopBar(
-                    tabIndex = pagerState.currentPage,
-                    onTabSelected = { index ->
-                        event(CatalogContract.Event.OnTabSelected(index))
-                    },
-                    onSearchClick = { event(CatalogContract.Event.OnSearchClick) },
-                    onScannerClick = { event(CatalogContract.Event.OnScannerClick) }
-                )
+                Text(uiState.test)
+//                TopBar(
+//                    tabIndex = pagerState.currentPage,
+//                    onTabSelected = { index ->
+//                        event(CatalogContract.Event.OnTabSelected(index))
+//                    },
+//                    onSearchClick = { event(CatalogContract.Event.OnSearchClick) },
+//                    onScannerClick = { event(CatalogContract.Event.OnScannerClick) }
+//                )
             },
         ) {
             HorizontalPager(

@@ -11,10 +11,12 @@ import kz.mechta.core_data.data.utils.NetworkUtil
 import kz.mechta.core_data.domain.repository.AuthRepository
 import kz.mechta.core_data.domain.repository.CartRepository
 import kz.mechta.core_data.domain.repository.CityRepository
-import kz.mechta.core_data.domain.use_case.AddCartUseCase
-import kz.mechta.core_data.domain.use_case.GetCartItemUseCase
-import kz.mechta.core_data.domain.use_case.GetCitiesUseCase
-import kz.mechta.core_data.domain.use_case.TrackCartUseCase
+import kz.mechta.core_data.domain.use_case.cart.AddCartUseCase
+import kz.mechta.core_data.domain.use_case.cart.GetCartItemUseCase
+import kz.mechta.core_data.domain.use_case.city.GetCitiesUseCase
+import kz.mechta.core_data.domain.use_case.city.GetCityUseCase
+import kz.mechta.core_data.domain.use_case.city.SaveCityUseCase
+import kz.mechta.core_data.domain.use_case.cart.TrackCartUseCase
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -30,7 +32,7 @@ val coreDBModule = module {
 }
 
 val coreRepositoryModule = module {
-    single<CityRepository> { CityRepositoryImpl(get(), get()) }
+    single<CityRepository> { CityRepositoryImpl(get(), get(), get()) }
     single<AuthRepository> { AuthRepositoryImpl(get()) }
     single<CartRepository> { CartRepositoryImpl(get(), get()) }
 }
@@ -42,6 +44,8 @@ val coreUseCaseModule = module {
     factory { TrackCartUseCase(get()) }
     // City
     factory { GetCitiesUseCase(get()) }
+    factory { SaveCityUseCase(get()) }
+    factory { GetCityUseCase(get()) }
 }
 
 expect val prefsModule: Module

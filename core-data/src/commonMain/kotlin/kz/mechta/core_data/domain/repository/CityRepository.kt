@@ -6,4 +6,6 @@ import kz.mechta.core_data.domain.model.Resource
 
 interface CityRepository {
     suspend fun getCities(): Resource<List<CityModel>>
+    suspend fun saveCity(cityModel: CityModel)
+    suspend fun getCity(): CityModel?
 }
