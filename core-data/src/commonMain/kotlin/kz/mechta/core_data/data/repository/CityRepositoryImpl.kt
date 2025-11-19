@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 import kz.mechta.core_data.data.api.CityApi
 import kz.mechta.core_data.data.mapper.CityMapper.toDomain
+import kz.mechta.core_data.data.mapper.CityMapper.toDto
+import kz.mechta.core_data.data.model.city.CityDto
 import kz.mechta.core_data.data.utils.NetworkUtil
 import kz.mechta.core_data.domain.model.CityModel
 import kz.mechta.core_data.domain.model.Resource
@@ -45,7 +47,7 @@ internal class CityRepositoryImpl(
 
     override suspend fun saveCity(cityModel: CityModel) {
         dataStore.edit { prefs ->
-            prefs[CITY_KEY] = json.encodeToString(cityModel)
+            prefs[CITY_KEY] = json.encodeToString(cityModel.toDto())
         }
     }
 
@@ -54,7 +56,7 @@ internal class CityRepositoryImpl(
             .map { it[CITY_KEY] }
             .firstOrNull()
         return jsonString?.let {
-            runCatching { json.decodeFromString<CityModel>(it) }.getOrNull()
+            runCatching { json.decodeFromString<CityDto>(it) }.getOrNull()?.toDomain()
         }
     }
 }
