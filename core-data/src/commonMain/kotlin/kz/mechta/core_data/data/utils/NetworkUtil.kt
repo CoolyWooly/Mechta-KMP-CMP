@@ -14,7 +14,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNames
-import kz.mechta.core_data.data.model.ErrorResponseDto
+import kz.mechta.core_data.data.model.base.ErrorResponseDto
 import kz.mechta.core_data.domain.model.Resource
 
 object NetworkUtil {

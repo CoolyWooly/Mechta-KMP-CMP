@@ -1,4 +1,4 @@
-package kz.mechta.core_data.data.model
+package kz.mechta.core_data.data.model.base
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName

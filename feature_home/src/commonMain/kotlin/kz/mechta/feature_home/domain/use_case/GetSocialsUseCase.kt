@@ -1,0 +1,13 @@
+package kz.mechta.feature_home.domain.use_case
+
+import kz.mechta.core_data.domain.model.Resource
+import kz.mechta.feature_home.domain.model.SocialModel
+import kz.mechta.feature_home.domain.repository.HomeRepository
+
+internal class GetSocialsUseCase(
+    private val repository: HomeRepository
+) {
+    suspend operator fun invoke(): Resource<List<SocialModel>> {
+        return repository.getSocials()
+    }
+}

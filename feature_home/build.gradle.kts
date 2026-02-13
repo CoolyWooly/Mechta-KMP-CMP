@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidLint)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -74,12 +75,18 @@ kotlin {
                 implementation(libs.material.icons.core)
                 // Navigation
                 implementation(libs.navigation.compose)
+                //Network
+                implementation(libs.ktor.client.core)
                 // DI
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
                 implementation(libs.koin.compose.viewmodel.navigation)
+
+                implementation(project(":core-navigation"))
+                implementation(project(":core-data"))
+                implementation(project(":core-ui"))
             }
         }
 

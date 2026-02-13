@@ -28,6 +28,7 @@ internal class OnboardingViewModel(
     override fun event(event: OnboardingContract.Event) {
         when (event) {
             is OnboardingContract.Event.OnCityClick -> onCityClick(event.cityModel)
+            is OnboardingContract.Event.OnSearchQueryChanged -> onSearchQueryChanged(event.query)
         }
     }
 
@@ -39,14 +40,36 @@ internal class OnboardingViewModel(
         viewModelScope.launch {
             when (val data = getCitiesUseCase()) {
                 is Resource.Failure -> {
-
+                    mutableState.update {
+                        it.copy(isLoading = false)
+                    }
                 }
                 is Resource.Success -> {
                     mutableState.update {
-                        it.copy(cities = data.value)
+                        it.copy(
+                            cities = data.value,
+                            filteredCities = data.value,
+                            isLoading = false
+                        )
                     }
                 }
             }
+        }
+    }
+
+    private fun onSearchQueryChanged(query: String) {
+        mutableState.update { state ->
+            val filtered = if (query.isBlank()) {
+                state.cities
+            } else {
+                state.cities.filter { city ->
+                    city.name.contains(query, ignoreCase = true)
+                }
+            }
+            state.copy(
+                searchQuery = query,
+                filteredCities = filtered
+            )
         }
     }
 

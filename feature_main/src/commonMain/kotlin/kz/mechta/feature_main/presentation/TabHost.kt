@@ -19,9 +19,12 @@ internal fun TabHost(
         startDestination = startDestination
     ) {
         composable<Route.HomeRoute> {
-            HomePage("HomeRoute", onClick = {
-                tabNavController.navigate(Route.CatalogRoute)
-            })
+            HomePage(
+                onNavigateToSearch = {},
+                onNavigateToNotifications = {},
+                onNavigateToCitySelection = {},
+                onNavigateToUrl = {}
+            )
         }
         composable<Route.CatalogRoute> {
             CatalogPage(
@@ -33,9 +36,7 @@ internal fun TabHost(
             )
         }
         composable<Route.CartRoute> {
-            HomePage("CartRoute", onClick = {
-                tabNavController.navigate(Route.HomeRoute)
-            })
+
         }
     }
 }
